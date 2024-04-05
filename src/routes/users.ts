@@ -10,8 +10,8 @@ import {
 } from "../controllers/users";
 import { logMiddleware } from "../middleware/log";
 const router = Router();
-router.get("/", logMiddleware, getItems);
-router.get("/:id", getItem);
+router.get("/", getItems);
+router.get("/:id", logMiddleware, getItem);
 /* elimimamos un usuario por completo, ya que no queremos eliminar solo un apartado */
 router.delete("/:id", deleteItem);
 /* parte de las inserciones del usuario

@@ -3,13 +3,13 @@ import { dataUser } from "../../../interface/data.user.interface";
 export const dataUserSchema = new Schema<dataUser>(
   {
     name: { type: String, required: true },
-    lastName: { type: String, required: true },
-    motherName: { type: String, required: true },
-    email: { type: String, required: true },
+    lastName: { type: String },
+    motherName: { type: String },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    gender: { type: String, required: true },
+    gender: { type: String, default: "male" },
     phone: {
-      numberPhone: { type: String, required: true },
+      numberPhone: { type: String, required: true, unique: true },
       lada: { type: String, required: true },
     },
   },
