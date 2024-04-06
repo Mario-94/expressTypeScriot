@@ -7,6 +7,7 @@ import {
   putBlog,
   deleteBlog,
 } from "../services/blogs";
+import { RequestExt } from "../interface/user.extendents";
 
 const getItems = async (req: Request, res: Response) => {
   try {
@@ -27,10 +28,10 @@ const getItem = async ({ params }: Request, res: Response) => {
   }
 };
 
-const postItem = async ({ body }: Request, res: Response) => {
+const postItem = async ({ body, user }: RequestExt, res: Response) => {
   try {
     const response = await insertBlog(body);
-    res.send(response);
+    res.send({ response, user });
   } catch (error) {
     hanldeHTTP(res, "ERROR_POST_BLOGS", error);
   }

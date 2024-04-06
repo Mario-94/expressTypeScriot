@@ -3,6 +3,7 @@ import { dataUser } from "../interface/data.user.interface";
 import UserModel from "../models/users/user";
 import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
+
 const registerNewUser = async (body: dataUser) => {
   /* NOTE: De esta manera se destructura la información para que podamos encriptarla */
   const { email, password, name, lastName, motherName, gender, phone } = body;

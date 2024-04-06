@@ -10,6 +10,12 @@ const generateToken = (id: string) => {
   return jwt;
 };
 
-const verifyToken = () => {};
+const verifyToken = (webToken: string) => {
+  const verificationToken = verify(webToken, JWT_SECRET);
+
+  if (!verificationToken) return "TOKEN_INVALID";
+
+  return verificationToken;
+};
 
 export { generateToken, verifyToken };
