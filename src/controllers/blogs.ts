@@ -6,7 +6,7 @@ import {
   getBlog,
   putBlog,
   deleteBlog,
-} from "../services/blogs";
+} from "../services/blogs/blogs";
 import { RequestExt } from "../interface/user.extendents";
 
 const getItems = async (req: Request, res: Response) => {

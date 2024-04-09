@@ -47,10 +47,10 @@ const loginUser = async ({ email, password }: Auth) => {
   a diferencia de vanilla javascript */
   const emailUser = checkIs.User?.dataUser?.email;
   if (!emailUser) return "NOT_EMAIL";
+  /* return checkIs;  cambiamos esto para ya no devolver todo el usuario sino solo el token que es lo que necesitaran en el front*/
 
   const token = generateToken(emailUser);
   const data = { Data: checkIs, token };
-  /* return checkIs;  cambiamos esto para ya no devolver todo el usuario sino solo el token que es lo que necesitaran en el front*/
   return data;
 };
 

@@ -1,5 +1,5 @@
-import { blog } from "../interface/blog.interface";
-import BlogModel from "../models/blogs/blog";
+import { blog } from "../../interface/blog.interface";
+import BlogModel from "../../models/blogs/blog";
 
 /* es el encargado de la logca de negocio aqui es donde nosotros ya hacemos las acciones a realizar  */
 const getBlogs = async () => {

@@ -4,6 +4,7 @@ const BlogSchema = new mongoose.Schema<blog>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
+    usuario: { id: { type: mongoose.Types.ObjectId, required: true } },
   },
   {
     timestamps:
