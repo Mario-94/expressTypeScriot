@@ -9,7 +9,7 @@ import {
   putDataItem,
 } from "../controllers/users";
 import { logMiddleware } from "../middleware/log";
-import { validatorGetItem } from "../validators/user";
+import { validatorCreateItem, validatorGetItem } from "../validators/user";
 const router = Router();
 router.get("/", getItems);
 router.get("/:id", validatorGetItem, getItem);
@@ -17,7 +17,7 @@ router.get("/:id", validatorGetItem, getItem);
 router.delete("/:id", deleteItem);
 /* parte de las inserciones del usuario
  */
-router.post("/addUser", postDataItem);
+router.post("/addUser", validatorCreateItem, postDataItem);
 
 router.put("/addAddress/:id", putAddressItem);
 router.put("/addAvatar/:id", putAvatarItem);
