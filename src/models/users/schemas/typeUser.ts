@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 
 export const typeUserSchema = new Schema<string>(
   {
-    typeUser: { type: String, enum: ["admin", "user"], required: true },
+    typeUser: { type: String, enum: ["admin", "user"], default: "user" },
   },
   {
     timestamps:

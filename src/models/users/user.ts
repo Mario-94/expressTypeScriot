@@ -2,15 +2,14 @@ import mongoose, { Schema } from "mongoose";
 import { dataUserSchema } from "./schemas/dataUser";
 import { addressUserSchema } from "./schemas/addressUser";
 import { avatarUserSchema } from "./schemas/avatar";
+import { typeUserSchema } from "./schemas/typeUser";
 /* Para este caso en particular ocupamso pasar el schema no el modelo sino no podras hacer referencia al modelo ya que los modelos solo hacen referencia a un solo modelo y este no puede tener anidados los modelos */
 const userSchema = new Schema(
   {
     User: {
       dataUser: { type: dataUserSchema, require: true },
       typeUser: {
-        type: String,
-        enum: ["admin", "user"],
-        required: true,
+        type: typeUserSchema,
       },
       addressUser: { type: addressUserSchema },
       avatarUser: { type: avatarUserSchema },

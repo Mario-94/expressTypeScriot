@@ -23,7 +23,6 @@ const registerNewUser = async (body: dataUser) => {
         gender,
         phone: { lada, numberPhone },
       },
-      typeUser: "user",
     },
   });
   return registerNewUser;

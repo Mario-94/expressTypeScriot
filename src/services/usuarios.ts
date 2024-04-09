@@ -14,7 +14,7 @@ const getUser = async (id: string) => {
 const insertUser = async (item: dataUser) => {
   /*NOTE:Por default dejamos typeUser como user,const defaultTypeUser = { typeUser: "user" }; */
   const responseInsert = await UserModel.create({
-    User: { dataUser: item, typeUser: "user" },
+    User: { dataUser: item },
   });
   return responseInsert;
 };
