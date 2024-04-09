@@ -9,9 +9,10 @@ import {
   putDataItem,
 } from "../controllers/users";
 import { logMiddleware } from "../middleware/log";
+import { validatorGetItem } from "../validators/user";
 const router = Router();
 router.get("/", getItems);
-router.get("/:id", logMiddleware, getItem);
+router.get("/:id", validatorGetItem, getItem);
 /* elimimamos un usuario por completo, ya que no queremos eliminar solo un apartado */
 router.delete("/:id", deleteItem);
 /* parte de las inserciones del usuario

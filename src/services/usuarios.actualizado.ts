@@ -7,25 +7,23 @@ const getUsers = async () => {
 };
 
 const getUser = async (id: string) => {
-  const response = await UserModel.findById({ id });
+  const response = await UserModel.findById(id);
   return response;
 };
 
 const insertUser = async (item: user) => {
-  const response = await UserModel.create({ item });
+  const response = await UserModel.create(item);
   return response;
 };
 
 const updateUser = async (id: string, data: user) => {
-  const response = await UserModel.findByIdAndUpdate({
-    id,
-    data,
-  });
+  const response = await UserModel.findByIdAndUpdate(id, data);
   return response;
 };
 
 const deleteUser = async (id: string) => {
-  const response = await UserModel.findByIdAndDelete({ id });
+  const response = await UserModel.findByIdAndDelete(id);
+  return response;
 };
 
 export { getUsers, getUser, insertUser, updateUser, deleteUser };

@@ -11,6 +11,7 @@ import {
   insertAvatarUser,
   updateUser,
 } from "../services/usuarioPut/usuariosPut";
+import { matchedData } from "express-validator";
 
 const getItems = async (req: Request, res: Response) => {
   try {
@@ -21,9 +22,10 @@ const getItems = async (req: Request, res: Response) => {
   }
 };
 
-const getItem = async ({ params }: Request, res: Response) => {
+const getItem = async (req: Request, res: Response) => {
   try {
-    const { id } = params;
+    const { id } = matchedData(req);
+    // const { id } = params;
     const response = await getUser(id);
     res.status(200).json(response);
   } catch (error) {

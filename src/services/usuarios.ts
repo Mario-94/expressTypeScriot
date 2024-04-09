@@ -7,7 +7,9 @@ const getUsers = async () => {
 };
 
 const getUser = async (id: string) => {
-  const responseGet = await UserModel.findById({ _id: id });
+  console.log("id desde el servicio" + id);
+
+  const responseGet = await UserModel.findById(id);
   return responseGet;
 };
 
