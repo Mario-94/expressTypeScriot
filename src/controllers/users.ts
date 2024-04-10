@@ -1,22 +1,18 @@
 import { Request, Response } from "express";
-import { hanldeHTTP } from "../utils/error.handle";
 import {
   deleteUser,
   getUser,
   getUsers,
   insertUser,
-} from "../services/usuarios";
-import {
-  insertAddressUser,
-  insertAvatarUser,
   updateUser,
-} from "../services/usuarioPut/usuariosPut";
+} from "../services/usuarios";
+import { hanldeHTTP } from "../utils/error.handle";
 import { matchedData } from "express-validator";
-
+import { logMiddleware } from "../middleware/log";
 const getItems = async (req: Request, res: Response) => {
   try {
     const response = await getUsers();
-    res.status(200).json(response);
+    res.status(200).send(response);
   } catch (error) {
     hanldeHTTP(res, "ERROR_GET_USERS");
   }
@@ -24,75 +20,49 @@ const getItems = async (req: Request, res: Response) => {
 
 const getItem = async (req: Request, res: Response) => {
   try {
+    /* MARK: en  este caso lo que hacemos es que cambiamos el params por el matchedData, ay que es más conveniente porque este es deacuerdo al modelo que tenemos  const {
+      id,
+    } = params;*/
     const { id } = matchedData(req);
-    // const { id } = params;
+
     const response = await getUser(id);
-    res.status(200).json(response);
+    res.status(200).send(response);
   } catch (error) {
-    hanldeHTTP(res, "ERROR_GET_USER");
+    hanldeHTTP(res, "ERROR_GET_USERS");
   }
 };
-/* Controla para insertar un usuario, preferimos agregar el número telefonico al usuario en general */
-const postDataItem = async ({ body }: Request, res: Response) => {
+const insertItem = async (req: Request, res: Response) => {
   try {
+    const { body } = matchedData(req);
     const response = await insertUser(body);
-    res.status(200).json(response);
+    res.status(200).send(response);
   } catch (error) {
-    hanldeHTTP(res, "ERROR_POST_USER", error);
+    hanldeHTTP(res, "ERROR_GET_USERS");
   }
 };
-/* put Data user */
-const putDataItem = async ({ params, body }: Request, res: Response) => {
+const updateItem = async ({ params, body }: Request, res: Response) => {
   try {
     const { id } = params;
+
+    /* MARK: en este caso quitamos esto porque es más facil utilizar el destructuring
+   de params y body 
+   const { id, ...body } = matchedData(req); */
+
     const response = await updateUser(id, body);
-    res.status(200).json(response);
+
+    res.status(200).send(response);
   } catch (error) {
-    hanldeHTTP(res, "ERROR_PUT_USER_DATA");
+    hanldeHTTP(res, "ERROR_PUT_USERS");
   }
 };
-
-/* Put addressUser */
-const putAddressItem = async ({ params, body }: Request, res: Response) => {
-  try {
-    const { id } = params;
-    const response = await insertAddressUser(id, body);
-    res.status(200).json(response);
-  } catch (error) {
-    hanldeHTTP(res, "ERROR_PUT_USER_ADDRESS");
-  }
-};
-
-/* Put avatarUser */
-const putAvatarItem = async ({ params, body }: Request, res: Response) => {
-  try {
-    const { id } = params;
-    const response = await insertAvatarUser(id, body);
-    res.send(response);
-  } catch (error) {
-    hanldeHTTP(res, "ERROR_PUT_USER_AVATAR");
-  }
-};
-
 const deleteItem = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = matchedData(req);
     const response = await deleteUser(id);
-    if (response === null) {
-      res.send({ message: "usuario no encontrado" });
-    }
-    res.status(200).json(response);
+    res.status(200).send(response);
   } catch (error) {
-    hanldeHTTP(res, "ERROR_DELETE_USER", error);
+    hanldeHTTP(res, "ERROR_GET_USERS");
   }
 };
 
-export {
-  getItems,
-  getItem,
-  deleteItem,
-  postDataItem,
-  putDataItem,
-  putAddressItem,
-  putAvatarItem,
-};
+export { getItem, getItems, insertItem, updateItem, deleteItem };

@@ -22,6 +22,8 @@ const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => {
       next();
     }
   } catch (error) {
+    console.log(error);
+
     res.status(400);
     res.send("SESSION_INVALID");
   }

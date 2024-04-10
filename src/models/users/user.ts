@@ -1,27 +1,43 @@
 import mongoose, { Schema } from "mongoose";
-import { dataUserSchema } from "./schemas/dataUser";
-import { addressUserSchema } from "./schemas/addressUser";
-import { avatarUserSchema } from "./schemas/avatar";
-import { typeUserSchema } from "./schemas/typeUser";
-/* Para este caso en particular ocupamso pasar el schema no el modelo sino no podras hacer referencia al modelo ya que los modelos solo hacen referencia a un solo modelo y este no puede tener anidados los modelos */
-const userSchema = new Schema(
+import { user } from "../../interface/user";
+
+const userSchema = new Schema<user>(
   {
-    User: {
-      dataUser: { type: dataUserSchema, require: true },
-      typeUser: {
-        type: typeUserSchema,
-      },
-      addressUser: { type: addressUserSchema },
-      avatarUser: { type: avatarUserSchema },
+    dataUser: {
+      name: { type: String, required: true },
+      lastName: { type: String },
+      motherName: { type: String },
+      email: { type: String, required: true, unique: true },
+      password: { type: String, required: true },
+      gender: { type: String, default: "male" },
+      role: { type: ["admin", "user"], default: "user" },
+    },
+    phone: {
+      numberPhone: { type: String, required: true },
+      lada: { type: String, required: true },
+    },
+
+    addressUser: {
+      zipCode: { type: String, required: true },
+      nationality: { type: String, required: true },
+      city: { type: String, required: true },
+      country: { type: String, required: true },
+    },
+    avatar: {
+      nameUser: { type: String, required: true },
+      imgAvatar: { type: String, required: true },
     },
   },
+
   {
-    timestamps: true,
+    /* MARKE: timestamps crea la fecha de creacion y actualizacion es el createdAt updateAt 
+    versionKey: con esto lo que hacemos es que no nos realizara algunas validaciones con la finalidad de que revise si se cumplen los campos o no, 
+    en mi caso no ocupo esto ya que necesito validar posteriormente los schemas 
+    para verificar que los datos se llenen de manera correcta   strict: false  
+    */
+    timestamps: false,
     versionKey: false,
-    /* con esto lo que hacemos es que no nos realizara algunas validaciones con la finalidad de que revise si se cumplen los campos o no, en mi caso no ocupo esto ya que necesito validar posteriormente los schemas para verificar que los datos se llenen de manera correcta   strict: false  */
   }
 );
-
-const UserModel = mongoose.model("users", userSchema);
-
+const UserModel = mongoose.model("user", userSchema);
 export default UserModel;

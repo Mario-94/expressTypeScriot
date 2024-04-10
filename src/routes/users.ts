@@ -1,31 +1,31 @@
 import { Router } from "express";
+// import { logMiddleware } from "../middleware/log";
+import { validatorCreateItem, validatorGetItem } from "../validators/user";
 import {
-  deleteItem,
   getItem,
   getItems,
-  postDataItem,
-  putAddressItem,
-  putAvatarItem,
-  putDataItem,
+  deleteItem,
+  updateItem,
 } from "../controllers/users";
-import { logMiddleware } from "../middleware/log";
-import { validatorCreateItem, validatorGetItem } from "../validators/user";
+//FIXME: ahorita por lo pronto vamos a posponer lo de roles
+// import { checkRol } from "../middleware/rol";
+import { checkJwt } from "../middleware/session";
 const router = Router();
 router.get("/", getItems);
 router.get("/:id", validatorGetItem, getItem);
-/* elimimamos un usuario por completo, ya que no queremos eliminar solo un apartado */
-router.delete("/:id", deleteItem);
 /* parte de las inserciones del usuario
- */
-router.post("/addUser", validatorCreateItem, postDataItem);
+MARK: en esta parte ya olvidaremos la parte de insercion por partes
+*/
+router.put(
+  "/modificar/:id",
+  checkJwt,
+  // checkRol(["admin"]),
+  /* NOTE: ojo siempre que vayamos a modificar es necesario primero utilizar el middleware, que se encarga de revisar que el id este, de lo controrio no reconoce este id */
+  validatorGetItem,
+  validatorCreateItem,
+  updateItem
+);
 
-router.put("/addAddress/:id", putAddressItem);
-router.put("/addAvatar/:id", putAvatarItem);
-/* para la modificacion de una sola parte del usuario */
+router.delete("/:id", validatorGetItem, deleteItem);
 
-router.put("/updateData/:id", putDataItem);
-router.put("/updateAddress/:id", putAddressItem);
-router.put("/updateAvatar/:id", putAvatarItem);
-/* Este put hace referencia a cuando agregamso todos los datos del usuario y queremos modificar una parte en concreto */
-// router.put("/:id", putDataItem);
 export { router };

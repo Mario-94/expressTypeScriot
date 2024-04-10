@@ -1,29 +1,31 @@
-import { dataUser } from "../interface/data.user.interface";
 import UserModel from "../models/users/user";
+import { user } from "../interface/user";
 
 const getUsers = async () => {
-  const responseGets = await UserModel.find({});
-  return responseGets;
-};
-
-const getUser = async (id: string) => {
-  console.log("id desde el servicio" + id);
-
-  const responseGet = await UserModel.findById(id);
-  return responseGet;
-};
-
-const insertUser = async (item: dataUser) => {
-  /*NOTE:Por default dejamos typeUser como user,const defaultTypeUser = { typeUser: "user" }; */
-  const responseInsert = await UserModel.create({
-    User: { dataUser: item },
-  });
-  return responseInsert;
-};
-
-const deleteUser = async (id: string) => {
-  const response = await UserModel.findByIdAndDelete({ _id: id });
+  const response = await UserModel.find({});
   return response;
 };
 
-export { getUsers, insertUser, getUser, deleteUser };
+const getUser = async (id: string) => {
+  const response = await UserModel.findById(id);
+  return response;
+};
+
+const insertUser = async (item: user) => {
+  const response = await UserModel.create(item);
+  return response;
+};
+
+const updateUser = async (id: string, data: user) => {
+  const response = await UserModel.findByIdAndUpdate({ _id: id }, data, {
+    new: true,
+  });
+  return response;
+};
+
+const deleteUser = async (id: string) => {
+  const response = await UserModel.findByIdAndDelete(id);
+  return response;
+};
+
+export { getUsers, getUser, insertUser, updateUser, deleteUser };

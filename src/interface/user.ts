@@ -6,20 +6,21 @@ export interface user {
     email: string;
     password: string;
     gender: string;
-    phone: {
-      numberPhone: string;
-      lada: string;
-    };
-    typeUser: string;
-    addressUser: {
-      zipCode: string;
-      nationality: string;
-      city: string;
-      country: string;
-    };
-    avatar: {
-      nameUser: string;
-      imgAvatar: string;
-    };
+    role: string;
+  };
+  phone: {
+    numberPhone: string;
+    lada: string;
+  };
+
+  addressUser: {
+    zipCode: string;
+    nationality: string;
+    city: string;
+    country: string;
+  };
+  avatar: {
+    nameUser: string;
+    imgAvatar: string;
   };
 }
