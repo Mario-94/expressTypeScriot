@@ -13,8 +13,6 @@ const registerController = async ({ body }: Request, res: Response) => {
 };
 
 const loginController = async ({ body }: Request, res: Response) => {
-  console.log(body);
-
   const { email, password } = body;
 
   const responseUser = await loginUser({ email, password });

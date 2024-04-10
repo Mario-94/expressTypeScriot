@@ -1,17 +1,15 @@
 import { Auth } from "../interface/auth.interface";
 
-import { user } from "../interface/user";
+import { User } from "../interface/user";
 import UserModel from "../models/users/user";
 import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
 
-const registerNewUser = async (body: user) => {
+const registerNewUser = async (body: User) => {
   /* NOTE: De esta manera se destructura la información para que podamos encriptarla */
-  const { dataUser, phone, addressUser, avatar } = body;
-  const { email, password, name, lastName, motherName, gender, role } =
-    dataUser;
+  const { dataUser, phone, addressUser } = body;
+  const { email, password, name, lastName, motherName, gender } = dataUser;
   const { lada, numberPhone } = phone;
-  const { nameUser, imgAvatar } = avatar;
   const { zipCode, nationality, country, city } = addressUser;
   const passHas = await encrypt(password);
   const checkIs = await UserModel.findOne({ "User.dataUser.email": email });
@@ -25,11 +23,9 @@ const registerNewUser = async (body: user) => {
       lastName,
       motherName,
       gender,
-      role,
     },
     phone: { lada, numberPhone },
     addressUser: { zipCode, nationality, city, country },
-    avatar: { nameUser, imgAvatar },
   });
   return registerNewUser;
 };
@@ -41,7 +37,7 @@ const loginUser = async ({ email, password }: Auth) => {
 
   const passHas =
     checkIs?.dataUser
-      ?.password; /* MARK: hase referencia al encryptado mientras que el if 
+      ?.password; /* MARK: hace referencia al encryptado mientras que el if 
       hace la funcion deverificar que efectivamente se cuente con el password */
   if (!passHas) return "NOT_FOUND";
 

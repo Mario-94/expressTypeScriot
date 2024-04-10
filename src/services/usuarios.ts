@@ -1,5 +1,6 @@
 import UserModel from "../models/users/user";
 import { User } from "../interface/user";
+import { encrypt } from "../utils/bcrypt.handle";
 
 const getUsers = async () => {
   const response = await UserModel.find({});
@@ -17,9 +18,29 @@ const insertUser = async (item: User) => {
 };
 
 const updateUser = async (id: string, data: User) => {
-  const response = await UserModel.findByIdAndUpdate({ _id: id }, data, {
-    new: true,
-  });
+  const { dataUser, phone, addressUser } = data;
+  const { email, password, name, lastName, motherName, gender } = dataUser;
+  const { lada, numberPhone } = phone;
+  const { zipCode, nationality, country, city } = addressUser;
+  const passHas = await encrypt(password);
+  const response = await UserModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      dataUser: {
+        email,
+        password: passHas,
+        name,
+        lastName,
+        motherName,
+        gender,
+      },
+      phone: { lada, numberPhone },
+      addressUser: { zipCode, nationality, city, country },
+    },
+    {
+      new: true,
+    }
+  );
   return response;
 };
 

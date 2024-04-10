@@ -8,7 +8,6 @@ import {
 } from "../services/usuarios";
 import { hanldeHTTP } from "../utils/error.handle";
 import { matchedData } from "express-validator";
-import { logMiddleware } from "../middleware/log";
 const getItems = async (req: Request, res: Response) => {
   try {
     const response = await getUsers();
