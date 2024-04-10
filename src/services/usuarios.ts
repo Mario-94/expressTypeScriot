@@ -1,5 +1,5 @@
 import UserModel from "../models/users/user";
-import { user } from "../interface/user";
+import { User } from "../interface/user";
 
 const getUsers = async () => {
   const response = await UserModel.find({});
@@ -11,12 +11,12 @@ const getUser = async (id: string) => {
   return response;
 };
 
-const insertUser = async (item: user) => {
+const insertUser = async (item: User) => {
   const response = await UserModel.create(item);
   return response;
 };
 
-const updateUser = async (id: string, data: user) => {
+const updateUser = async (id: string, data: User) => {
   const response = await UserModel.findByIdAndUpdate({ _id: id }, data, {
     new: true,
   });

@@ -16,7 +16,7 @@ const validatorCreateItem = [
     .isEmail(),
   check("dataUser.password").exists().notEmpty().isLength({ min: 3, max: 15 }),
   check("dataUser.gender").exists().notEmpty().isLength({ min: 4, max: 6 }),
-  check("dataUser.role").exists().notEmpty(),
+
   check("phone.numberPhone").exists().notEmpty().isLength({ min: 10, max: 12 }),
   check("phone.lada").exists().notEmpty().isLength({ min: 2, max: 15 }),
   check("addressUser.zipCode").exists().notEmpty().isLength({ max: 10 }),
@@ -29,8 +29,7 @@ const validatorCreateItem = [
     .exists()
     .notEmpty()
     .isLength({ min: 3, max: 40 }),
-  check("avatar.nameUser").exists().notEmpty().isLength({ max: 30 }),
-  check("avatar.imgAvatar").exists().notEmpty(),
+
   (req: Request, res: Response, next: NextFunction) => {
     return customValidatorResult(req, res, next);
   },

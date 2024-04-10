@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import { user } from "../../interface/user";
+import { User } from "../../interface/user";
 
-const userSchema = new Schema<user>(
+const userSchema = new Schema<User>(
   {
     dataUser: {
       name: { type: String, required: true },
@@ -9,26 +9,19 @@ const userSchema = new Schema<user>(
       motherName: { type: String },
       email: { type: String, required: true, unique: true },
       password: { type: String, required: true },
-      gender: { type: String, default: "male" },
-      role: { type: ["admin", "user"], default: "user" },
+      gender: { type: String, enum: ["male", "female"], default: "male" },
     },
     phone: {
       numberPhone: { type: String, required: true },
       lada: { type: String, required: true },
     },
-
     addressUser: {
       zipCode: { type: String, required: true },
       nationality: { type: String, required: true },
       city: { type: String, required: true },
       country: { type: String, required: true },
     },
-    avatar: {
-      nameUser: { type: String, required: true },
-      imgAvatar: { type: String, required: true },
-    },
   },
-
   {
     /* MARKE: timestamps crea la fecha de creacion y actualizacion es el createdAt updateAt 
     versionKey: con esto lo que hacemos es que no nos realizara algunas validaciones con la finalidad de que revise si se cumplen los campos o no, 
